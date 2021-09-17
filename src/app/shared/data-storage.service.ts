@@ -20,7 +20,6 @@ export class DataStorageService {
     });
   }
 
-
   fetchRecipes() {
     return this.http.get<Recipe[]>('https://course-project-4e179-default-rtdb.europe-west1.firebasedatabase.app/recipes.json')
       .pipe(map(recipes => {
