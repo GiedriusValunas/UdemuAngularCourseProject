@@ -9,15 +9,16 @@ import {Subject} from "rxjs";
 })
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
-  private recipes: Recipe [] = [
-    new Recipe('A test recipe',
-      'Just a test recipe',
-      'https://www.recipetineats.com/wp-content/uploads/2021/08/Spaghetti-Puttanesca_64-SQ.jpg?w=900',
-      [
-        new Ingredient('Meat', 3),
-        new Ingredient('Bread', 1)
-      ])
-  ];
+  // private recipes: Recipe [] = [
+  //   new Recipe('A test recipe',
+  //     'Just a test recipe',
+  //     'https://www.recipetineats.com/wp-content/uploads/2021/08/Spaghetti-Puttanesca_64-SQ.jpg?w=900',
+  //     [
+  //       new Ingredient('Meat', 3),
+  //       new Ingredient('Bread', 1)
+  //     ])
+  // ];
+  private recipes: Recipe [] = [];
 
   constructor(private slService: ShoppingListService) {
   }
@@ -46,6 +47,11 @@ export class RecipeService {
 
   deleteRecipe(index: number) {
     this.recipes.splice(index, 1);
+    this.recipesChanged.next(this.getRecipes());
+  }
+
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
     this.recipesChanged.next(this.getRecipes());
   }
 }
